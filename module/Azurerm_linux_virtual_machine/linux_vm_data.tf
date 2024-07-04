@@ -4,6 +4,12 @@ data "azurerm_network_interface" "Jay-project-Repo-nic" {
   resource_group_name = each.value.rg_name
 }
 
+data "azurerm_network_security_group" "Jay-nsg" {
+  for_each = var.Jay-linux-virtual_machine
+  name                = each.value.nsg_name
+  resource_group_name = each.value.rg_name
+}
+
 data "azurerm_key_vault" "Jay-project-Repo-key" {
  for_each = var.Jay-linux-virtual_machine
   name                = each.value.key_vault_name

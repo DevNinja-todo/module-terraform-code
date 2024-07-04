@@ -23,3 +23,8 @@ resource "azurerm_linux_virtual_machine" "Jay-linux-vm" {
     version   = each.value.version_name 
   }
 }
+resource "azurerm_network_interface_security_group_association" "jay-nsg-asso" {
+  for_each = var.Jay-linux-virtual_machine
+  network_interface_id      = data.azurerm_network_interface.Jay-project-Repo-nic[each.key].id
+  network_security_group_id = data.azurerm_network_security_group.Jay-nsg[each.key].id
+}
